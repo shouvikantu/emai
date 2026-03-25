@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-playfair: "Playfair Display", Georgia, serif;
+  --font-lato: "Lato", sans-serif;
+  --font-jetbrains: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #0e1117;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #12141f; }
+::-webkit-scrollbar-thumb { background: #3d4060; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #5e6180; }
+
+/* Custom animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0); }
+  50%       { box-shadow: 0 0 12px 4px rgba(245, 166, 35, 0.18); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes strikeThrough {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+.animate-fade-up { animation: fadeUp 0.35s ease both; }
+.animate-slide-in { animation: slideIn 0.25s ease both; }
+.animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+
+/* Stagger children */
+.stagger-children > * { animation: fadeUp 0.35s ease both; }
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.10s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.20s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.30s; }
+
+/* Task done strikethrough */
+.task-done-text {
+  position: relative;
+  color: #5e6180;
+}
+.task-done-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 1px;
+  background: #5e6180;
+  width: 100%;
+}
+
+/* Noise texture overlay */
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Phase color utilities */
+.phase-amber  { --phase-color: #f5a623; --phase-dim: rgba(245,166,35,0.12); }
+.phase-sage   { --phase-color: #7eb89a; --phase-dim: rgba(126,184,154,0.12); }
+.phase-blue   { --phase-color: #60a5fa; --phase-dim: rgba(96,165,250,0.12); }
+.phase-coral  { --phase-color: #e8755a; --phase-dim: rgba(232,117,90,0.12); }
+.phase-ink    { --phase-color: #8a8da6; --phase-dim: rgba(138,141,166,0.12); }
+
+/* Progress bar fill animation */
+@keyframes fillBar {
+  from { width: 0; }
+}
+.progress-bar-fill { animation: fillBar 0.6s cubic-bezier(0.4,0,0.2,1) both; }
