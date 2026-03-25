@@ -43,10 +43,10 @@ export default function PhaseSection({
         {/* Phase number */}
         <div
           className={clsx(
-            "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-lg border-2 transition-all duration-300",
+            "shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-lg border-2 transition-all duration-300",
             complete
               ? "border-sage-400 text-sage-300 bg-sage-900/30"
-              : "border-[var(--phase-color)] text-[var(--phase-color)] bg-[var(--phase-dim)]"
+              : "border-(--phase-color) text-(--phase-color) bg-(--phase-dim)"
           )}
         >
           {complete ? "✓" : phase.number}
@@ -64,7 +64,7 @@ export default function PhaseSection({
         </div>
 
         {/* Progress */}
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center gap-3 shrink-0">
           <div className="text-right hidden sm:block">
             <span
               className="text-sm font-mono font-medium"

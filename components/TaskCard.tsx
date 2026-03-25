@@ -52,7 +52,7 @@ export default function TaskCard({ task, status, onStatusChange, animDelay = 0 }
       {/* Status toggle */}
       <button
         className={clsx(
-          "flex-shrink-0 mt-0.5 w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200",
+          "shrink-0 mt-0.5 w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200",
           status === "done"
             ? "bg-sage-400 border-sage-400 text-ink-900"
             : status === "inprogress"
@@ -111,7 +111,7 @@ export default function TaskCard({ task, status, onStatusChange, animDelay = 0 }
       </div>
 
       {/* Status pill */}
-      <div className="flex-shrink-0 mt-0.5">
+      <div className="shrink-0 mt-0.5">
         <span
           className={clsx(
             "text-xs px-2 py-0.5 rounded-full border opacity-0 group-hover:opacity-100 transition-opacity duration-150",

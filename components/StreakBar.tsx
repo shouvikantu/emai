@@ -73,7 +73,7 @@ export default function StreakBar({ streak, dayLogs, totalDone, totalTasks }: Pr
           </div>
           <div className="h-2 bg-ink-700 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full progress-bar-fill"
+              className="h-full bg-linear-to-r from-amber-500 to-amber-300 rounded-full progress-bar-fill"
               style={{ width: `${pct}%` }}
             />
           </div>

@@ -53,7 +53,7 @@ export default function WeekPanel({
       >
         {/* Week num */}
         <div
-          className="flex-shrink-0 font-mono text-xs font-medium px-2 py-1 rounded border"
+          className="shrink-0 font-mono text-xs font-medium px-2 py-1 rounded border"
           style={{
             color: phaseAccent,
             borderColor: `${phaseAccent}40`,
@@ -74,7 +74,7 @@ export default function WeekPanel({
         </div>
 
         {/* Progress */}
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center gap-3 shrink-0">
           <div className="hidden sm:flex items-center gap-1.5 text-xs">
             {done > 0 && (
               <span className="text-sage-400 font-mono">{done}✓</span>
