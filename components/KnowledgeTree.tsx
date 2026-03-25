@@ -91,7 +91,7 @@ export default function KnowledgeTree({ getNodeCompletion }: Props) {
         x: pos.x,
         y: pos.y,
         completion: getNodeCompletion(n.weekIds, WEEKS),
-        phaseAccent: PHASE_ACCENTS[n.phaseId] ?? "#8a8da6",
+        phaseAccent: PHASE_ACCENTS[n.phaseId] ?? "var(--color-slate-300)",
       };
     });
 
@@ -134,13 +134,13 @@ export default function KnowledgeTree({ getNodeCompletion }: Props) {
       .attr("orient", "auto-start-reverse")
       .append("path")
       .attr("d", "M 0 0 L 10 5 L 0 10 z")
-      .attr("fill", "#3d4060");
+      .attr("fill", "var(--color-slate-300)");
 
     // Grid background dots
     const dotSpacing = 45;
     for (let dx = dotSpacing; dx < W; dx += dotSpacing) {
       for (let dy = dotSpacing; dy < H; dy += dotSpacing) {
-        svg.append("circle").attr("cx", dx).attr("cy", dy).attr("r", 1).attr("fill", "#1a1d2e");
+        svg.append("circle").attr("cx", dx).attr("cy", dy).attr("r", 1).attr("fill", "var(--color-slate-200)");
       }
     }
 
@@ -158,7 +158,7 @@ export default function KnowledgeTree({ getNodeCompletion }: Props) {
       .attr("fill", "none")
       .attr("stroke", (d) => {
         const srcComp = d.source.completion;
-        return srcComp === 1 ? "#3d6050" : "#1e2235";
+        return srcComp === 1 ? "var(--color-emerald-500)" : "var(--color-slate-200)";
       })
       .attr("stroke-width", 1.5)
       .attr("stroke-dasharray", (d) => d.source.completion === 1 ? "none" : "4 3")
@@ -189,8 +189,8 @@ export default function KnowledgeTree({ getNodeCompletion }: Props) {
     nodeGs.append("circle")
       .attr("class", "bg")
       .attr("r", 24)
-      .attr("fill", (d) => d.completion > 0 ? `${d.phaseAccent}18` : "#12141f")
-      .attr("stroke", (d) => d.completion === 1 ? "#7eb89a" : d.phaseAccent)
+      .attr("fill", (d) => d.completion > 0 ? `${d.phaseAccent}15` : "var(--color-white)")
+      .attr("stroke", (d) => d.completion === 1 ? "var(--color-emerald-500)" : d.completion > 0 ? d.phaseAccent : "var(--color-slate-200)")
       .attr("stroke-width", (d) => d.completion === 1 ? 2 : 1)
       .attr("stroke-opacity", (d) => d.completion === 1 ? 0.9 : 0.35)
       .attr("filter", (d) => d.completion === 1 ? "url(#glow)" : "none");
@@ -224,7 +224,7 @@ export default function KnowledgeTree({ getNodeCompletion }: Props) {
       .attr("dy", "0.35em")
       .attr("font-size", "11px")
       .attr("font-family", "JetBrains Mono, monospace")
-      .attr("fill", (d) => d.completion === 1 ? "#7eb89a" : d.phaseAccent)
+      .attr("fill", (d) => d.completion === 1 ? "var(--color-emerald-600)" : d.completion > 0 ? d.phaseAccent : "var(--color-slate-400)")
       .attr("font-weight", "600")
       .text((d) => d.completion === 1 ? "✓" : d.label.slice(0, 3));
 
@@ -233,8 +233,8 @@ export default function KnowledgeTree({ getNodeCompletion }: Props) {
       .attr("text-anchor", "middle")
       .attr("dy", "38px")
       .attr("font-size", "9px")
-      .attr("font-family", "Lato, sans-serif")
-      .attr("fill", "#5e6180")
+      .attr("font-family", "Inter, sans-serif")
+      .attr("fill", "var(--color-slate-500)")
       .text((d) => d.label.length > 12 ? d.label.slice(0, 11) + "…" : d.label);
 
   }, [getNodeCompletion]);
@@ -253,18 +253,18 @@ export default function KnowledgeTree({ getNodeCompletion }: Props) {
             transform: "translate(-50%, -130%)",
           }}
         >
-          <div className="bg-ink-800 border border-ink-600 rounded-lg px-3 py-2 shadow-xl text-center whitespace-nowrap">
-            <p className="text-sm font-medium text-ink-100">{tooltip.node.label}</p>
+          <div className="bg-white border border-slate-200 rounded-xl px-4 py-3 shadow-lg text-center whitespace-nowrap">
+            <p className="text-sm font-semibold text-slate-900">{tooltip.node.label}</p>
             {tooltip.node.sublabel && (
-              <p className="text-xs text-ink-400 mt-0.5">{tooltip.node.sublabel}</p>
+              <p className="text-[10px] font-medium uppercase tracking-widest text-slate-500 mt-1">{tooltip.node.sublabel}</p>
             )}
-            <div className="mt-1.5 flex items-center gap-2 justify-center">
-              <div className="h-1.5 w-20 bg-ink-700 rounded-full overflow-hidden">
+            <div className="mt-2.5 flex items-center gap-2 justify-center">
+              <div className="h-1.5 w-24 bg-slate-100 rounded-full overflow-hidden shadow-inner">
                 <div
                   className="h-full rounded-full"
                   style={{
                     width: `${tooltip.node.completion * 100}%`,
-                    background: tooltip.node.completion === 1 ? "#7eb89a" : tooltip.node.phaseAccent,
+                    background: tooltip.node.completion === 1 ? "var(--color-emerald-500)" : tooltip.node.phaseAccent,
                   }}
                 />
               </div>
@@ -284,14 +284,14 @@ export default function KnowledgeTree({ getNodeCompletion }: Props) {
               className="w-2.5 h-2.5 rounded-full"
               style={{ background: p.accentHex }}
             />
-            <span className="text-xs text-ink-500">{p.title}</span>
+            <span className="text-xs font-medium text-slate-500">{p.title}</span>
           </div>
         ))}
-        <div className="flex items-center gap-1.5 ml-auto">
-          <div className="w-5 h-px bg-ink-700" style={{ borderTop: "2px dashed #3d4060" }} />
-          <span className="text-xs text-ink-500">Locked</span>
-          <div className="w-5 h-px ml-2" style={{ background: "#3d6050", height: "2px" }} />
-          <span className="text-xs text-ink-500">Unlocked</span>
+        <div className="flex items-center gap-2 ml-auto">
+          <div className="w-6 h-px" style={{ borderTop: "2px dashed var(--color-slate-300)" }} />
+          <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">Locked</span>
+          <div className="w-6 h-px ml-3" style={{ background: "var(--color-emerald-500)", height: "2px" }} />
+          <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400">Unlocked</span>
         </div>
       </div>
     </div>

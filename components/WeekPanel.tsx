@@ -40,10 +40,10 @@ export default function WeekPanel({
   return (
     <div
       className={clsx(
-        "rounded-xl border transition-all duration-200",
+        "rounded-xl border transition-all duration-200 bg-white",
         open
-          ? "border-ink-600/80 bg-ink-800/80"
-          : "border-ink-700/50 bg-ink-800/40 hover:border-ink-600/60"
+          ? "border-slate-300 shadow-sm"
+          : "border-slate-200 shadow-sm hover:border-slate-300 hover:shadow"
       )}
     >
       {/* Header */}
@@ -65,10 +65,10 @@ export default function WeekPanel({
 
         {/* Focus */}
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-ink-100 group-hover:text-white transition-colors truncate">
+          <p className="text-sm font-semibold text-slate-900 group-hover:text-slate-700 transition-colors truncate">
             {week.focus}
           </p>
-          <p className="text-xs text-ink-500 truncate hidden sm:block">
+          <p className="text-xs text-slate-500 truncate hidden sm:block mt-0.5">
             {week.description}
           </p>
         </div>
@@ -77,23 +77,23 @@ export default function WeekPanel({
         <div className="flex items-center gap-3 shrink-0">
           <div className="hidden sm:flex items-center gap-1.5 text-xs">
             {done > 0 && (
-              <span className="text-sage-400 font-mono">{done}✓</span>
+              <span className="text-emerald-500 font-medium">{done}✓</span>
             )}
             {inprog > 0 && (
-              <span className="text-amber-400 font-mono">{inprog}~</span>
+              <span className="text-amber-500 font-medium">{inprog}~</span>
             )}
             {todo > 0 && (
-              <span className="text-ink-500 font-mono">{todo}○</span>
+              <span className="text-slate-400 font-medium">{todo}○</span>
             )}
           </div>
 
           {/* Mini progress ring */}
           <div className="relative w-8 h-8">
             <svg className="w-8 h-8 -rotate-90" viewBox="0 0 32 32">
-              <circle cx="16" cy="16" r="12" fill="none" stroke="#1a1d2e" strokeWidth="3" />
+              <circle cx="16" cy="16" r="12" fill="none" stroke="var(--color-slate-100)" strokeWidth="3" />
               <circle
                 cx="16" cy="16" r="12" fill="none"
-                stroke={pct === 100 ? "#7eb89a" : phaseAccent}
+                stroke={pct === 100 ? "var(--sage-default, #7eb89a)" : phaseAccent}
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeDasharray={`${2 * Math.PI * 12}`}
@@ -103,7 +103,7 @@ export default function WeekPanel({
             </svg>
             <span
               className="absolute inset-0 flex items-center justify-center font-mono text-center leading-none"
-              style={{ fontSize: "8px", color: pct === 100 ? "#7eb89a" : phaseAccent }}
+              style={{ fontSize: "8px", color: pct === 100 ? "var(--sage-default, #7eb89a)" : phaseAccent }}
             >
               {Math.round(pct)}
             </span>
@@ -112,7 +112,7 @@ export default function WeekPanel({
           {/* Chevron */}
           <svg
             className={clsx(
-              "w-4 h-4 text-ink-500 transition-transform duration-200",
+              "w-4 h-4 text-slate-400 transition-transform duration-200",
               open && "rotate-180"
             )}
             fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
@@ -126,13 +126,13 @@ export default function WeekPanel({
       {open && (
         <div className="px-4 pb-4">
           {/* Progress bar */}
-          <div className="h-0.5 bg-ink-700 rounded-full mb-4 overflow-hidden">
+          <div className="h-0.5 bg-slate-100 rounded-full mb-4 overflow-hidden">
             <div
               className="h-full rounded-full progress-bar-fill transition-all duration-500"
               style={{
                 width: `${pct}%`,
                 background: pct === 100
-                  ? "#7eb89a"
+                  ? "var(--sage-default, #7eb89a)"
                   : `linear-gradient(90deg, ${phaseAccent}88, ${phaseAccent})`,
               }}
             />
@@ -152,27 +152,27 @@ export default function WeekPanel({
           </div>
 
           {/* Quick complete all / reset */}
-          <div className="flex items-center gap-2 mt-3 pt-3 border-t border-ink-700/50">
+          <div className="flex items-center gap-3 mt-4 pt-3 border-t border-slate-100">
             <button
-              className="text-xs text-ink-500 hover:text-sage-400 transition-colors"
+              className="text-xs font-medium text-slate-400 hover:text-emerald-600 transition-colors"
               onClick={() =>
                 week.tasks.forEach((t) => onStatusChange(t.id, "done"))
               }
             >
               Mark all done
             </button>
-            <span className="text-ink-700">·</span>
+            <span className="text-slate-200 text-xs">|</span>
             <button
-              className="text-xs text-ink-500 hover:text-coral-400 transition-colors"
+              className="text-xs font-medium text-slate-400 hover:text-amber-600 transition-colors"
               onClick={() =>
                 week.tasks.forEach((t) => onStatusChange(t.id, "todo"))
               }
             >
               Reset week
             </button>
-            <span className="text-ink-700">·</span>
+            <span className="text-slate-200 text-xs">|</span>
             <button
-              className="text-xs text-ink-500 hover:text-amber-400 transition-colors"
+              className="text-xs font-medium text-slate-400 hover:text-blue-600 transition-colors"
               onClick={() => setShowNotes(!showNotes)}
             >
               {showNotes ? "Hide notes" : "Add notes"}
@@ -182,9 +182,9 @@ export default function WeekPanel({
           {/* Notes */}
           {showNotes && (
             <textarea
-              className="mt-3 w-full bg-ink-900/80 border border-ink-600/50 rounded-lg px-3 py-2 text-sm text-ink-200
-                         placeholder-ink-600 font-body resize-none focus:outline-none focus:border-amber-500/50
-                         transition-colors duration-200 animate-fade-up"
+              className="mt-4 w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700
+                         placeholder-slate-400 font-body resize-none focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/50
+                         transition-all duration-200 animate-fade-up shadow-sm mb-2"
               rows={3}
               placeholder="Notes for this week..."
               value={note}

@@ -38,12 +38,12 @@ export default function TaskCard({ task, status, onStatusChange, animDelay = 0 }
   return (
     <div
       className={clsx(
-        "group flex items-start gap-3 px-3 py-2.5 rounded-lg border transition-all duration-200 cursor-pointer select-none animate-slide-in",
+        "group flex items-start gap-3 px-4 py-3 rounded-xl border transition-all duration-200 cursor-pointer select-none animate-slide-in shadow-sm hover:shadow-md",
         status === "done"
-          ? "bg-ink-800/40 border-ink-700/40 opacity-70 hover:opacity-90"
+          ? "bg-slate-50 border-slate-200 opacity-60 hover:opacity-100"
           : status === "inprogress"
-          ? "bg-amber-900/20 border-amber-700/40 hover:border-amber-500/60"
-          : "bg-ink-800/60 border-ink-700/50 hover:border-ink-500/60 hover:bg-ink-800"
+          ? "bg-amber-50 border-amber-300 ring-1 ring-amber-500/20"
+          : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50"
       )}
       style={{ animationDelay: `${animDelay}ms` }}
       onClick={() => onStatusChange(task.id, next)}
@@ -52,12 +52,12 @@ export default function TaskCard({ task, status, onStatusChange, animDelay = 0 }
       {/* Status toggle */}
       <button
         className={clsx(
-          "shrink-0 mt-0.5 w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200",
+          "shrink-0 mt-0.5 w-5 h-5 rounded border-[1.5px] flex items-center justify-center transition-all duration-200",
           status === "done"
-            ? "bg-sage-400 border-sage-400 text-ink-900"
+            ? "bg-emerald-500 border-emerald-500 text-white"
             : status === "inprogress"
-            ? "bg-amber-500/30 border-amber-500 text-amber-400"
-            : "bg-transparent border-ink-500 group-hover:border-ink-300"
+            ? "bg-amber-100 border-amber-500 text-amber-500"
+            : "bg-transparent border-slate-300 group-hover:border-slate-400"
         )}
         aria-label={`Task status: ${status}`}
       >
@@ -79,18 +79,18 @@ export default function TaskCard({ task, status, onStatusChange, animDelay = 0 }
           </span>
           <span
             className={clsx(
-              "text-xs font-mono uppercase tracking-wider px-1.5 py-0.5 rounded",
+              "text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded-full",
               status === "done"
-                ? "text-ink-500 bg-ink-700/50"
+                ? "text-slate-500 bg-slate-100"
                 : task.type === "code"
-                ? "text-sage-300 bg-sage-900/40"
+                ? "text-emerald-700 bg-emerald-50 ring-1 ring-emerald-600/10"
                 : task.type === "check"
-                ? "text-amber-300 bg-amber-900/40"
+                ? "text-amber-700 bg-amber-50 ring-1 ring-amber-600/10"
                 : task.type === "watch"
-                ? "text-blue-300 bg-blue-900/30"
+                ? "text-blue-700 bg-blue-50 ring-1 ring-blue-600/10"
                 : task.type === "install"
-                ? "text-coral-400 bg-coral-600/20"
-                : "text-ink-400 bg-ink-700/50"
+                ? "text-rose-700 bg-rose-50 ring-1 ring-rose-600/10"
+                : "text-slate-600 bg-slate-100 ring-1 ring-slate-500/10"
             )}
           >
             {TYPE_LABEL[task.type]}
@@ -98,12 +98,12 @@ export default function TaskCard({ task, status, onStatusChange, animDelay = 0 }
         </div>
         <p
           className={clsx(
-            "text-sm leading-snug transition-colors duration-200",
+            "text-sm leading-snug transition-colors duration-200 mt-1",
             status === "done"
-              ? "task-done-text text-ink-500"
+              ? "task-done-text text-slate-400"
               : status === "inprogress"
-              ? "text-amber-100"
-              : "text-ink-200 group-hover:text-ink-100"
+              ? "text-amber-900 font-medium"
+              : "text-slate-700 group-hover:text-slate-900"
           )}
         >
           {task.text}
@@ -114,12 +114,12 @@ export default function TaskCard({ task, status, onStatusChange, animDelay = 0 }
       <div className="shrink-0 mt-0.5">
         <span
           className={clsx(
-            "text-xs px-2 py-0.5 rounded-full border opacity-0 group-hover:opacity-100 transition-opacity duration-150",
+            "text-[10px] uppercase tracking-wide font-semibold px-2 py-1 rounded-full border opacity-0 group-hover:opacity-100 transition-opacity duration-150 shadow-sm",
             status === "done"
               ? "hidden"
               : status === "inprogress"
-              ? "border-amber-600/40 text-amber-500 bg-amber-900/30"
-              : "border-ink-600 text-ink-500 bg-ink-800"
+              ? "border-amber-200 text-amber-700 bg-white"
+              : "border-slate-200 text-slate-500 bg-white"
           )}
         >
           → {next}

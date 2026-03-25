@@ -17,10 +17,10 @@ export default function Dashboard() {
 
   if (!store.hydrated) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex items-center gap-3 text-ink-500">
-          <div className="w-4 h-4 rounded-full border-2 border-ink-500 border-t-amber-400 animate-spin" />
-          <span className="text-sm font-mono">Loading...</span>
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="flex items-center gap-3 text-slate-500">
+          <div className="w-4 h-4 rounded-full border-2 border-slate-300 border-t-slate-600 animate-spin" />
+          <span className="text-sm font-medium">Loading...</span>
         </div>
       </div>
     );
@@ -44,27 +44,27 @@ export default function Dashboard() {
         <header className="mb-8">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-mono text-amber-500/80 uppercase tracking-[0.2em] mb-1">
+              <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-2">
                 Erasmus Master · UPF Barcelona
               </p>
-              <h1 className="font-display text-3xl sm:text-4xl font-bold text-ink-50 leading-tight">
+              <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
                 EMAI Prep
               </h1>
-              <p className="text-ink-400 text-sm mt-1">
+              <p className="text-slate-500 text-sm mt-2">
                 April → September 2026 · 22 weeks · 5 courses
               </p>
             </div>
 
             <button
-              className="text-xs text-ink-600 hover:text-coral-400 transition-colors mt-1 font-mono"
+              className="text-xs text-slate-400 hover:text-slate-600 transition-colors mt-1 font-medium bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm hover:shadow"
               onClick={() => setShowReset(true)}
             >
-              reset
+              Reset Data
             </button>
           </div>
 
           {/* Streak + overall progress */}
-          <div className="mt-6 bg-ink-800/60 border border-ink-700/50 rounded-2xl p-4 sm:p-5">
+          <div className="mt-8 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
             <StreakBar
               streak={store.streak}
               dayLogs={store.state.dayLogs}
@@ -86,20 +86,27 @@ export default function Dashboard() {
             return (
               <div
                 key={phase.id}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-mono transition-all"
-                style={{
-                  borderColor: pct > 0 ? `${phase.accentHex}50` : "#1e2235",
-                  backgroundColor: pct > 0 ? `${phase.accentHex}10` : "#12141f",
-                  color: pct > 0 ? phase.accentHex : "#3d4060",
-                }}
+                className={clsx(
+                  "flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium transition-all shadow-sm",
+                  pct === 0 && "bg-white border-slate-200 text-slate-500"
+                )}
+                style={
+                  pct > 0
+                    ? {
+                        borderColor: `${phase.accentHex}40`,
+                        backgroundColor: `${phase.accentHex}10`,
+                        color: phase.accentHex,
+                      }
+                    : {}
+                }
               >
                 <span>P{phase.number}</span>
-                <div className="w-12 h-1 bg-ink-800 rounded-full overflow-hidden">
+                <div className="w-12 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-500"
                     style={{
                       width: `${pct}%`,
-                      background: pct === 100 ? "#7eb89a" : phase.accentHex,
+                      background: pct === 100 ? "var(--color-emerald-500)" : phase.accentHex,
                     }}
                   />
                 </div>
@@ -110,15 +117,15 @@ export default function Dashboard() {
         </div>
 
         {/* ── Tab bar ─────────────────────────────────────────── */}
-        <div className="flex gap-1 bg-ink-800/60 border border-ink-700/50 rounded-xl p-1 mb-6 w-fit">
+        <div className="flex gap-1 bg-slate-100/50 border border-slate-200/60 rounded-xl p-1 mb-8 w-fit">
           {(["plan", "tree"] as Tab[]).map((t) => (
             <button
               key={t}
               className={clsx(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                "px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                 tab === t
-                  ? "bg-ink-700 text-ink-100 shadow-sm"
-                  : "text-ink-500 hover:text-ink-300"
+                  ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-900/5"
+                  : "text-slate-500 hover:text-slate-700"
               )}
               onClick={() => setTab(t)}
             >
@@ -161,10 +168,10 @@ export default function Dashboard() {
         {/* ── Knowledge tree tab ──────────────────────────────── */}
         {tab === "tree" && (
           <div className="animate-fade-up">
-            <div className="bg-ink-800/60 border border-ink-700/50 rounded-2xl p-4 sm:p-6">
-              <div className="mb-4">
-                <h2 className="font-display text-xl text-ink-100 mb-1">Knowledge Dependency Graph</h2>
-                <p className="text-sm text-ink-500">
+            <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-7 shadow-sm">
+              <div className="mb-6">
+                <h2 className="text-xl font-semibold text-slate-900 tracking-tight mb-1">Knowledge Dependency Graph</h2>
+                <p className="text-sm text-slate-500">
                   Nodes light up as you complete tasks. Edges show dependencies — a skill unlocks when its prerequisites are done. Hover nodes for details.
                 </p>
               </div>
@@ -183,24 +190,24 @@ export default function Dashboard() {
         )}
 
         {/* ── Footer ──────────────────────────────────────────── */}
-        <footer className="mt-12 pt-6 border-t border-ink-800 text-center">
-          <p className="text-xs text-ink-700 font-mono">
-            EMAI @ UPF · Semester 1 · Progress saved locally in your browser
+        <footer className="mt-16 pt-8 border-t border-slate-200 text-center">
+          <p className="text-[11px] uppercase tracking-widest text-slate-400 font-semibold">
+            EMAI @ UPF · Semester 1 · Progress saved locally or in Supabase
           </p>
         </footer>
       </div>
 
       {/* ── Reset confirm modal ──────────────────────────────── */}
       {showReset && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/80 backdrop-blur-sm">
-          <div className="bg-ink-800 border border-ink-600 rounded-2xl p-6 max-w-sm w-full mx-4 animate-fade-up shadow-2xl">
-            <h3 className="font-display text-lg text-ink-100 mb-2">Reset all progress?</h3>
-            <p className="text-sm text-ink-400 mb-5">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/20 backdrop-blur-sm">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 max-w-sm w-full mx-4 animate-fade-up shadow-xl">
+            <h3 className="text-lg font-semibold text-slate-900 tracking-tight mb-2">Reset all progress?</h3>
+            <p className="text-sm text-slate-500 mb-6 leading-relaxed">
               This will clear all task completions, streaks, and notes. This cannot be undone.
             </p>
             <div className="flex gap-3">
               <button
-                className="flex-1 px-4 py-2 rounded-lg bg-coral-600 hover:bg-coral-500 text-white text-sm font-medium transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-semibold transition-colors shadow-sm"
                 onClick={() => {
                   store.resetAll();
                   setShowReset(false);
@@ -209,7 +216,7 @@ export default function Dashboard() {
                 Reset everything
               </button>
               <button
-                className="flex-1 px-4 py-2 rounded-lg border border-ink-600 hover:border-ink-400 text-ink-300 text-sm font-medium transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 text-slate-700 text-sm font-semibold transition-colors bg-slate-50 hover:bg-slate-100"
                 onClick={() => setShowReset(false)}
               >
                 Cancel

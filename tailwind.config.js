@@ -8,23 +8,11 @@ module.exports = {
     extend: {
       fontFamily: {
         display: ["var(--font-playfair)", "Georgia", "serif"],
-        body: ["var(--font-lato)", "sans-serif"],
+        body: ["var(--font-inter)", "sans-serif"],
         mono: ["var(--font-jetbrains)", "monospace"],
       },
       colors: {
-        ink: {
-          DEFAULT: "#0e1117",
-          50: "#f4f4f6",
-          100: "#e2e3e8",
-          200: "#b8bac8",
-          300: "#8a8da6",
-          400: "#5e6180",
-          500: "#3d4060",
-          600: "#272a42",
-          700: "#1a1d2e",
-          800: "#12141f",
-          900: "#0e1117",
-        },
+
         amber: {
           DEFAULT: "#f5a623",
           50: "#fef9ee",

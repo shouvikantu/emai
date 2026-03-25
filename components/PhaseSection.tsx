@@ -31,21 +31,21 @@ export default function PhaseSection({
   const complete = pct === 100;
 
   return (
-    <div className={clsx("phase-" + phase.color, "rounded-2xl border border-ink-700/60 overflow-hidden")}>
+    <div className={clsx("phase-" + phase.color, "rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-sm")}>
       {/* Phase header */}
       <button
         className={clsx(
-          "w-full text-left px-5 py-4 flex items-center gap-4 group transition-colors duration-200",
-          open ? "bg-ink-800/80" : "bg-ink-800/40 hover:bg-ink-800/60"
+          "w-full text-left px-5 py-5 flex items-center gap-4 group transition-colors duration-200",
+          open ? "bg-slate-50/80" : "bg-white hover:bg-slate-50"
         )}
         onClick={() => setOpen(!open)}
       >
         {/* Phase number */}
         <div
           className={clsx(
-            "shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-lg border-2 transition-all duration-300",
+            "shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg border-[1.5px] transition-all duration-300 shadow-sm",
             complete
-              ? "border-sage-400 text-sage-300 bg-sage-900/30"
+              ? "border-emerald-500 text-emerald-600 bg-emerald-50"
               : "border-(--phase-color) text-(--phase-color) bg-(--phase-dim)"
           )}
         >
@@ -55,34 +55,34 @@ export default function PhaseSection({
         {/* Title + weeks */}
         <div className="flex-1 min-w-0">
           <p className={clsx(
-            "font-display text-base font-semibold transition-colors",
-            complete ? "text-sage-300" : "text-ink-100 group-hover:text-white"
+            "text-base font-semibold tracking-tight transition-colors",
+            complete ? "text-emerald-700" : "text-slate-900 group-hover:text-slate-700"
           )}>
             {phase.title}
           </p>
-          <p className="text-xs text-ink-500">{phase.weeks}</p>
+          <p className="text-xs text-slate-500 font-medium mt-0.5">{phase.weeks}</p>
         </div>
 
         {/* Progress */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-4 shrink-0">
           <div className="text-right hidden sm:block">
             <span
-              className="text-sm font-mono font-medium"
-              style={{ color: complete ? "#7eb89a" : phase.accentHex }}
+              className="text-sm font-semibold tracking-wide"
+              style={{ color: complete ? "var(--color-emerald-600)" : phase.accentHex }}
             >
-              {phaseDone}/{phaseTotal}
+              {phaseDone} / {phaseTotal}
             </span>
-            <p className="text-xs text-ink-500">{pct}%</p>
+            <p className="text-[10px] font-medium uppercase tracking-wider text-slate-400 mt-0.5">{pct}%</p>
           </div>
 
           {/* Phase progress bar */}
-          <div className="hidden md:block w-20 h-1.5 bg-ink-700 rounded-full overflow-hidden">
+          <div className="hidden md:block w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden shadow-inner">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${pct}%`,
                 background: complete
-                  ? "#7eb89a"
+                  ? "var(--color-emerald-500)"
                   : `linear-gradient(90deg, ${phase.accentHex}80, ${phase.accentHex})`,
               }}
             />
@@ -90,7 +90,7 @@ export default function PhaseSection({
 
           <svg
             className={clsx(
-              "w-5 h-5 text-ink-500 transition-transform duration-200",
+              "w-5 h-5 text-slate-400 transition-transform duration-200",
               open && "rotate-180"
             )}
             fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
